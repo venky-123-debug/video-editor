@@ -25,9 +25,6 @@
 
     // Construct the filter value string
     filterValue = `brightness(${$progressStore.brightness}%) contrast(${$progressStore.contrast}%) grayscale(${$progressStore.grayscale}%)`
-
-    // Log for debugging
-    console.log({ filterValue }, $progressStore)
   }
 </script>
 

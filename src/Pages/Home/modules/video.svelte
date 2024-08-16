@@ -6,9 +6,11 @@
   export let isVideoLoaded = false
 
   const handleFileChange = (event) => {
+    console.log(" event.target", event.target)
     file = event.target.files[0]
     if (file) {
       const fileURL = URL.createObjectURL(file)
+      console.log(fileURL)
       videoElement.src = fileURL
       isVideoLoaded = true
     }
@@ -18,6 +20,13 @@
     videoElement.src = ""
     file = ""
     isVideoLoaded = false
+    if (videoFileInput) {
+      videoFileInput.value = ""
+    }
+  }
+
+  $: {
+    console.log({ file })
   }
 </script>
 

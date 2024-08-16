@@ -9,8 +9,6 @@
   export let isVideoLoaded = false
   function handleGrandparentChange(event) {
     const { label, progress } = event.detail
-    console.log(`Grandparent received change event: ${label} is now ${progress}%`)
-    // Handle the event as needed
     dispatch("onProgress", event.detail)
   }
   let items = [
