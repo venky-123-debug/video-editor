@@ -1,4 +1,8 @@
 <script>
+  import { createEventDispatcher } from "svelte"
+
+  import progressStore from "../../../Stores/progressStore"
+  const dispatch = createEventDispatcher()
   export let videoElement
   export let filterValue
   let videoFileInput
@@ -6,11 +10,9 @@
   export let isVideoLoaded = false
 
   const handleFileChange = (event) => {
-    console.log(" event.target", event.target)
     file = event.target.files[0]
     if (file) {
       const fileURL = URL.createObjectURL(file)
-      console.log(fileURL)
       videoElement.src = fileURL
       isVideoLoaded = true
     }
@@ -23,10 +25,12 @@
     if (videoFileInput) {
       videoFileInput.value = ""
     }
-  }
+    dispatch("onReset")
+    $progressStore.brightness = 100
+    $progressStore.contrast = 100
+    progressStore.grayscale = 0
 
-  $: {
-    console.log({ file })
+    console.log()
   }
 </script>
 

@@ -7,6 +7,7 @@
   let isVideoLoaded = false
   let videoElement
   let filterValue
+
   function handleProgress(event) {
     const { label, progress } = event.detail
 
@@ -32,7 +33,14 @@
   <Navbar />
 
   <div class="mx-auto flex min-h-full w-4/5 items-center justify-center gap-3">
-    <Video bind:videoElement bind:isVideoLoaded bind:filterValue />
+    <Video
+      bind:videoElement
+      bind:isVideoLoaded
+      bind:filterValue
+      on:onReset={() => {
+        console.log($progressStore)
+      }}
+    />
     <Card bind:isVideoLoaded on:onProgress={handleProgress} />
   </div>
 </main>
