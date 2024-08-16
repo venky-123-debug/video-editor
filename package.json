@@ -1,14 +1,11 @@
 {
-  "name": "svelte-spa-app-base",
+  "name": "video-editor",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "npx rollup -c",
     "dev": "npx rollup -c -w",
-    "start": "ws",
-    "build-cp": "npx rollup -c && sudo cp -r public/* /var/www/html/ ",
-    "cp": "sudo cp -r public/* /var/www/html/ ",
-    "push": "npm run build && scp -i ~/.ssh/id_rsa -r public/build/* ubuntu@13.233.9.12:test/public/karthick/build/"
+    "start": "ws"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
