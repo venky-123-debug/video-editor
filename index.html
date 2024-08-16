@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Video Editor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+      <!-- Video File Input -->
+      <input
+        type="file"
+        id="videoFileInput"
+        accept="video/*"
+        class="mb-4 block w-full text-sm text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+      />
+
+      <div class="relative">
+        <video
+          id="videoElement"
+          controls
+          class="w-full border-2 border-gray-800 mb-4"
+        >
+          <source id="videoSource" src="your-video-file.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <canvas id="videoCanvas" class="absolute top-0 left-0"></canvas>
+      </div>
+      <div class="flex justify-between flex-wrap mb-4">
+        <button
+          id="playPauseBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Play/Pause
+        </button>
+        <button
+          id="muteBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Mute/Unmute
+        </button>
+        <button
+          id="rewindBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Rewind 10s
+        </button>
+        <button
+          id="forwardBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Forward 10s
+        </button>
+        <button
+          id="screenshotBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Screenshot
+        </button>
+        <button
+          id="addTextBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600 mb-2"
+        >
+          Add Text
+        </button>
+      </div>
+
+      <!-- Trim Controls -->
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Trim Start:</label>
+        <input type="range" id="trimStart" min="0" value="0" class="w-full" />
+        <label class="block text-gray-700 mt-2 mb-1">Trim End:</label>
+        <input type="range" id="trimEnd" min="0" value="100" class="w-full" />
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-1">Brightness:</label>
+        <input
+          type="range"
+          id="brightness"
+          min="0"
+          max="2"
+          step="0.1"
+          value="1"
+          class="w-full"
+        />
+        <label class="block text-gray-700 mt-2 mb-1">Contrast:</label>
+        <input
+          type="range"
+          id="contrast"
+          min="0"
+          max="2"
+          step="0.1"
+          value="1"
+          class="w-full"
+        />
+        <label class="block text-gray-700 mt-2 mb-1">Grayscale:</label>
+        <input
+          type="range"
+          id="grayscale"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0"
+          class="w-full"
+        />
+      </div>
+
+      <!-- Audio Controls -->
+      <div class="mb-4">
+        <input
+          type="file"
+          id="audioFile"
+          accept="audio/*"
+          class="mb-4 block w-full text-sm text-gray-600 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600"
+        />
+        <button
+          id="addAudioBtn"
+          class="bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+        >
+          Add Audio
+        </button>
+      </div>
+
+      <!-- Playback Speed Control -->
+      <div>
+        <label class="block text-gray-700 mb-1">Playback Speed:</label>
+        <input
+          type="range"
+          id="playbackSpeed"
+          min="0.5"
+          max="2"
+          step="0.1"
+          value="1"
+          class="w-full"
+        />
+      </div>
+    </div>
+
+    <script>
+      const videoElement = document.getElementById("videoElement");
+      const videoSource = document.getElementById("videoSource");
+      const videoFileInput = document.getElementById("videoFileInput");
+      const playPauseBtn = document.getElementById("playPauseBtn");
+      const muteBtn = document.getElementById("muteBtn");
+      const rewindBtn = document.getElementById("rewindBtn");
+      const forwardBtn = document.getElementById("forwardBtn");
+      const screenshotBtn = document.getElementById("screenshotBtn");
+      const addTextBtn = document.getElementById("addTextBtn");
+      const trimStart = document.getElementById("trimStart");
+      const trimEnd = document.getElementById("trimEnd");
+      const brightness = document.getElementById("brightness");
+      const contrast = document.getElementById("contrast");
+      const grayscale = document.getElementById("grayscale");
+      const audioFile = document.getElementById("audioFile");
+      const addAudioBtn = document.getElementById("addAudioBtn");
+      const playbackSpeed = document.getElementById("playbackSpeed");
+      const videoCanvas = document.getElementById("videoCanvas");
+      const ctx = videoCanvas.getContext("2d");
+
+      let overlayText = "";
+      let audioElement;
+
+      // Handle video file input
+      videoFileInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          const fileURL = URL.createObjectURL(file);
+          videoSource.src = fileURL;
+          videoElement.load();
+        }
+      });
+
+      // Play/Pause functionality
+      playPauseBtn.addEventListener("click", () => {
+        if (videoElement.paused) {
+          videoElement.play();
+          playPauseBtn.textContent = "Pause";
+        } else {
+          videoElement.pause();
+          playPauseBtn.textContent = "Play";
+        }
+      });
+
+      // Mute/Unmute functionality
+      muteBtn.addEventListener("click", () => {
+        videoElement.muted = !videoElement.muted;
+        muteBtn.textContent = videoElement.muted ? "Unmute" : "Mute";
+      });
+
+      // Rewind functionality
+      rewindBtn.addEventListener("click", () => {
+        videoElement.currentTime = Math.max(0, videoElement.currentTime - 10);
+      });
+
+      // Forward functionality
+      forwardBtn.addEventListener("click", () => {
+        videoElement.currentTime = Math.min(
+          videoElement.duration,
+          videoElement.currentTime + 10
+        );
+      });
+
+      // Screenshot functionality
+      screenshotBtn.addEventListener("click", () => {
+        const screenshotCanvas = document.createElement("canvas");
+        const ctx = screenshotCanvas.getContext("2d");
+        screenshotCanvas.width = videoElement.videoWidth;
+        screenshotCanvas.height = videoElement.videoHeight;
+        ctx.drawImage(
+          videoElement,
+          0,
+          0,
+          screenshotCanvas.width,
+          screenshotCanvas.height
+        );
+        const dataURL = screenshotCanvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataURL;
+        link.download = "screenshot.png";
+        link.click();
+      });
+
+      // Add text overlay
+      addTextBtn.addEventListener("click", () => {
+        overlayText = prompt("Enter the text to overlay:");
+        drawOverlayText();
+      });
+
+      function drawOverlayText() {
+        videoCanvas.width = videoElement.videoWidth;
+        videoCanvas.height = videoElement.videoHeight;
+        ctx.clearRect(0, 0, videoCanvas.width, videoCanvas.height);
+        ctx.font = "24px Arial";
+        ctx.fillStyle = "white";
+        ctx.fillText(overlayText, 10, 30);
+      }
+
+      // Trim functionality
+      trimStart.addEventListener("input", () => {
+        videoElement.currentTime =
+          (trimStart.value * videoElement.duration) / 100;
+      });
+
+      trimEnd.addEventListener("input", () => {
+        if (
+          videoElement.currentTime >
+          (trimEnd.value * videoElement.duration) / 100
+        ) {
+          videoElement.currentTime =
+            (trimEnd.value * videoElement.duration) / 100;
+        }
+      });
+
+      // Apply filters
+      function applyFilters() {
+        const filterValue = `brightness(${brightness.value}) contrast(${contrast.value}) grayscale(${grayscale.value})`;
+        videoElement.style.filter = filterValue;
+      }
+
+      brightness.addEventListener("input", applyFilters);
+      contrast.addEventListener("input", applyFilters);
+      grayscale.addEventListener("input", applyFilters);
+
+      // Add audio track
+      addAudioBtn.addEventListener("click", () => {
+        if (audioFile.files.length > 0) {
+          const audioSrc = URL.createObjectURL(audioFile.files[0]);
+          if (audioElement) {
+            audioElement.pause();
+          }
+          audioElement = new Audio(audioSrc);
+          audioElement.play();
+        }
+      });
+
+      // Adjust playback speed
+      playbackSpeed.addEventListener("input", () => {
+        videoElement.playbackRate = playbackSpeed.value;
+      });
+    </script>
+  </body>
+</html>
