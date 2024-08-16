@@ -1,5 +1,5 @@
 <script>
-  let videoElement
+  export let videoElement
   let videoFileInput
   let file = ""
   export let isVideoLoaded = false

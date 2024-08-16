@@ -19,7 +19,7 @@
   ]
 </script>
 
-{#if !isVideoLoaded}
+{#if isVideoLoaded}
   <div class="w-full">
     <Tabs {items} />
   </div>
