@@ -2,7 +2,7 @@
   let videoElement
   let videoFileInput
   let file = ""
-  let isVideoLoaded = false
+  export let isVideoLoaded = false
 
   function handleFileChange(event) {
     file = event.target.files[0]
@@ -20,7 +20,7 @@
   }
 </script>
 
-<div class="mx-auto w-full max-w-4xl rounded-lg bg-gray-900 p-3 {!isVideoLoaded ? 'shadow-md hover:border-dotted hover:shadow-blue-600' : ''} ">
+<div class="mx-auto w-full max-w-2xl rounded-lg bg-gray-900 p-3 {!isVideoLoaded ? 'shadow-md hover:border-dotted hover:shadow-blue-600' : ''} ">
   <div class="space-y-4">
     <!-- Video File Input -->
     <label for="video-upload" class="block w-full cursor-pointer rounded-md border border-gray-800 bg-gray-800 py-3 text-center text-base text-blue-600 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
