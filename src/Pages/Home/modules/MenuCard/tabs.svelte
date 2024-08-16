@@ -24,6 +24,6 @@
     {/each}
   </div>
   <div class="h-full min-h-[400px] w-full rounded-md rounded-t-none border border-[#a0a1a580] bg-gray-900 p-3">
-    <svelte:component this={activeItem} />
+    <svelte:component this={activeItem} on:change />
   </div>
 </div>

@@ -1,10 +1,11 @@
 <script>
   export let videoElement
+  export let filterValue
   let videoFileInput
   let file = ""
   export let isVideoLoaded = false
 
-  function handleFileChange(event) {
+  const handleFileChange = (event) => {
     file = event.target.files[0]
     if (file) {
       const fileURL = URL.createObjectURL(file)
@@ -13,7 +14,7 @@
     }
   }
 
-  function resetVideo() {
+  const resetVideo = () => {
     videoElement.src = ""
     file = ""
     isVideoLoaded = false
@@ -31,7 +32,7 @@
     <!-- Video Display -->
     <!-- The video player is always rendered but is only shown if a video is loaded -->
     <!-- svelte-ignore a11y-media-has-caption -->
-    <video bind:this={videoElement} controls class="aspect-video w-full rounded-lg border-2 border-gray-800 {isVideoLoaded ? '' : 'hidden'}">Your browser does not support the video tag.</video>
+    <video bind:this={videoElement} controls style="filter: {filterValue};" class="aspect-video w-full rounded-lg border-2 border-gray-800 {isVideoLoaded ? '' : 'hidden'}">Your browser does not support the video tag.</video>
 
     {#if isVideoLoaded}
       <button on:click={resetVideo} class="mt-4 w-full rounded-lg bg-red-600 py-2 px-4 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600">Remove Video</button>

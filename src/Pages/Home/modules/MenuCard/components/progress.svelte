@@ -1,13 +1,17 @@
 <script>
+  import { createEventDispatcher } from "svelte"
+
+  const dispatch = createEventDispatcher()
   export let label = ""
-  let progress = 50 // Initial progress value
+  export let progress = 50
 
   function handleInput(event) {
     progress = event.target.value
+    dispatch("onChange", { label, progress })
   }
 </script>
 
-<div class="flex flex-col items-center space-y-2">
+<div class="flex w-full flex-col items-center space-y-2">
   <div class="flex w-full justify-between">
     <div class="text-sm text-white">{label}</div>
     <div class="text-sm font-medium text-white">
