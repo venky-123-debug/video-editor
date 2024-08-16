@@ -7,24 +7,19 @@
 
   let items = [
     {
-      id: "Form",
+      id: "Screen",
       iconClass: "fa-solid fa-pen-field",
       component: Tools,
     },
     {
-      id: "Preview",
-      iconClass: "fa-solid fa-eye",
+      id: "Filters",
+      iconClass: "fa-solid fa-sliders",
       component: Handle,
     },
-    // {
-    //   id: "JSON",
-    //   iconClass: "fa-sharp fa-solid fa-circle-question",
-    //   component: JsonEditor,
-    // },
   ]
 </script>
 
-{#if isVideoLoaded}
+{#if !isVideoLoaded}
   <div class="w-full">
     <Tabs {items} />
   </div>

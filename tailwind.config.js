@@ -3,7 +3,12 @@ module.exports = {
   darkMode: "class",
   content: ["./src/**/*.svelte"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        mobile: "500px",
+        xls: "1366px",
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
-};
+}
