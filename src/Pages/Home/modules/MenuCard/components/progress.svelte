@@ -3,7 +3,7 @@
 
   const dispatch = createEventDispatcher()
   export let label = ""
-  export let progress = 50
+  export let progress
 
   function handleInput(event) {
     progress = event.target.value
@@ -15,15 +15,15 @@
   <div class="flex w-full justify-between">
     <div class="text-sm text-white">{label}</div>
     <div class="text-sm font-medium text-white">
-      {progress}%
+      {progress / 2}%
     </div>
   </div>
   <!-- Progress Bar Wrapper -->
   <div class="relative h-3 w-full overflow-hidden rounded-lg bg-gray-200">
     <!-- Animated Striped Background -->
-    <div class="bg-stripes absolute top-0 left-0 h-full bg-blue-600" style="width: {progress}%;" />
+    <div class="bg-stripes absolute top-0 left-0 h-full bg-blue-600" style="width: {progress / 2}%;" />
     <!-- HTML Range Input (Transparent) -->
-    <input type="range" min="0" max="100" bind:value={progress} on:input={handleInput} class="absolute top-0 left-0 h-full w-full cursor-pointer opacity-0" />
+    <input type="range" min="0" max="200" bind:value={progress} on:input={handleInput} class="absolute top-0 left-0 h-full w-full cursor-pointer opacity-0" />
   </div>
 </div>
 

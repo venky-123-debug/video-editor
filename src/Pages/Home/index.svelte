@@ -1,4 +1,5 @@
 <script>
+  import progressStore from "../../Stores/progressStore"
   import Card from "./modules/MenuCard/card.svelte"
   import Navbar from "./modules/Navbar/navbar.svelte"
   import Video from "./modules/video.svelte"
@@ -8,27 +9,25 @@
   let filterValue
   function handleProgress(event) {
     const { label, progress } = event.detail
-    console.log("event.detail", event.detail)
-    console.log(`App received progress event: ${label} is now ${progress}%`)
 
     // Update values based on the label
     switch (label) {
       case "Brightness":
-        brightness = progress
+        $progressStore.brightness = Number(progress)
         break
       case "Contrast":
-        contrast = progress
+        $progressStore.contrast = Number(progress)
         break
       case "GrayScale":
-        grayscale = progress
+        $progressStore.grayscale = Number(progress)
         break
     }
 
     // Construct the filter value string
-    filterValue = `brightness(${brightness}%) contrast(${contrast}%) grayscale(${grayscale}%)`
+    filterValue = `brightness(${$progressStore.brightness}%) contrast(${$progressStore.contrast}%) grayscale(${$progressStore.grayscale}%)`
 
     // Log for debugging
-    console.log({ filterValue })
+    console.log({ filterValue }, $progressStore)
   }
 </script>
 
@@ -36,7 +35,7 @@
   <Navbar />
 
   <div class="mx-auto flex min-h-full w-4/5 items-center justify-center gap-3">
-    <Video bind:videoElement bind:isVideoLoaded {filterValue} />
+    <Video bind:videoElement bind:isVideoLoaded bind:filterValue />
     <Card bind:isVideoLoaded on:onProgress={handleProgress} />
   </div>
 </main>

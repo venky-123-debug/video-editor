@@ -1,9 +1,9 @@
 import { writable } from "svelte/store"
 
 const progressStore = writable({
-  brightness: 50,
-  contrast: 50,
-  grayscale: 50,
+  brightness: 100,
+  contrast: 100,
+  grayscale: 0,
 })
 
 export default progressStore
