@@ -17,11 +17,6 @@
       iconClass: "fa-solid fa-sliders",
       component: Tools,
     },
-    {
-      id: "Screen",
-      iconClass: "fa-solid fa-pen-field",
-      component: Handle,
-    },
   ]
 </script>
 

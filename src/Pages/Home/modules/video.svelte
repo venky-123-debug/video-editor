@@ -28,10 +28,10 @@
   }
 </script>
 
-<div class="mx-auto w-full max-w-2xl rounded-lg bg-gray-900 p-3 {!isVideoLoaded ? 'shadow-md hover:border-dotted hover:shadow-blue-600' : ''} ">
+<div class="mx-auto w-full max-w-2xl rounded-lg bg-gray-900 p-0.5 {!isVideoLoaded ? 'shadow-md hover:border-dotted hover:shadow-blue-600' : ''} ">
   <div class="space-y-4">
     <!-- Video File Input -->
-    <label for="video-upload" class="block w-full cursor-pointer rounded-md border border-gray-800 bg-gray-800 py-3 text-center text-base text-blue-600 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
+    <label for="video-upload" class="block w-full cursor-pointer rounded-md border border-gray-800 bg-gray-800 p-12 text-center text-lg text-blue-600 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-600">
       {isVideoLoaded ? "Select another video file" : "Select a video file to upload"}
     </label>
     <input id="video-upload" on:change={handleFileChange} type="file" bind:this={videoFileInput} accept="video/*" class="hidden" />
