@@ -50,6 +50,14 @@
       muted = false
     }
   }
+
+  const handleFwd = () => {
+    console.log(videoElement.currentTime)
+    videoElement.currentTime = Math.min(videoElement.duration, videoElement.currentTime + 10)
+  }
+  const handleBwd = () => {
+    videoElement.currentTime = Math.max(0, videoElement.currentTime - 10)
+  }
 </script>
 
 <div class="flex w-full max-w-2xl flex-col items-center justify-center gap-3">
@@ -71,5 +79,5 @@
       {/if}
     </div>
   </div>
-  <VideoButtons {paused} {muted} {isVideoLoaded} on:play={handlePlay} on:mute={handleMute} />
+  <VideoButtons {paused} {muted} {isVideoLoaded} on:play={handlePlay} on:mute={handleMute} on:farward={handleFwd} on:backward={handleBwd} />
 </div>

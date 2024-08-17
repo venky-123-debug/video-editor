@@ -4,7 +4,7 @@
   export let iconClass
 </script>
 
-<button type="button" on:click class="rounded-md {buttonClass} w-32 px-3 py-1.5 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+<button type="button" on:click class="rounded-md {buttonClass} min-w-32 px-3 py-1.5 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
   <i class="fa-solid {iconClass}" />
   {text}
 </button>
