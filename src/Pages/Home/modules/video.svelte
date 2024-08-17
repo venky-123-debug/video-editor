@@ -10,6 +10,7 @@
   let videoFileInput
   let file = ""
   let paused = false
+  let muted = false
 
   const handleFileChange = (event) => {
     file = event.target.files[0]
@@ -38,8 +39,16 @@
       videoElement.pause()
       paused = false
     }
+  }
 
-    console.log({ paused })
+  const handleMute = () => {
+    if (!muted) {
+      videoElement.muted = true
+      muted = true
+    } else {
+      videoElement.muted = false
+      muted = false
+    }
   }
 </script>
 
@@ -62,5 +71,5 @@
       {/if}
     </div>
   </div>
-  <VideoButtons {paused} {isVideoLoaded} on:play={handlePlay} />
+  <VideoButtons {paused} {muted} {isVideoLoaded} on:play={handlePlay} on:mute={handleMute} />
 </div>
