@@ -15,4 +15,6 @@
 
   <Button text="Forward 10s" iconClass="fa-forward" on:click={() => dispatch("farward")} />
   <Button text="Backward 10s" iconClass="fa-backward" on:click={() => dispatch("backward")} />
+
+  <Button text="Screenshot" iconClass="fa-camera-viewfinder" on:click={() => dispatch("SS")} />
 </div>
