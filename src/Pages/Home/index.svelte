@@ -7,10 +7,10 @@
   let isVideoLoaded = false
   let videoElement
   let filterValue
-
+  let label, progress
   function handleProgress(event) {
-    const { label, progress } = event.detail
-
+    label = event.detail.label
+    progress = event.detail.progress
     // Update values based on the label
     switch (label) {
       case "Brightness":
@@ -39,6 +39,10 @@
       bind:filterValue
       on:onReset={() => {
         console.log($progressStore)
+        $progressStore.brightness = 100
+        $progressStore.contrast = 100
+        $progressStore.grayscale = 0
+        progress = 0
       }}
     />
     <Card bind:isVideoLoaded on:onProgress={handleProgress} />

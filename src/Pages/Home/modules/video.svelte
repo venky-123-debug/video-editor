@@ -1,7 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte"
 
-  import progressStore from "../../../Stores/progressStore"
   const dispatch = createEventDispatcher()
   export let videoElement
   export let filterValue
@@ -26,11 +25,6 @@
       videoFileInput.value = ""
     }
     dispatch("onReset")
-    $progressStore.brightness = 100
-    $progressStore.contrast = 100
-    progressStore.grayscale = 0
-
-    console.log()
   }
 </script>
 

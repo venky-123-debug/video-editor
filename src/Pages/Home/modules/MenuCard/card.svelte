@@ -9,7 +9,7 @@
   export let isVideoLoaded = false
   function handleGrandparentChange(event) {
     const { label, progress } = event.detail
-    dispatch("onProgress", event.detail)
+    dispatch("onProgress", { label, progress })
   }
   let items = [
     {
