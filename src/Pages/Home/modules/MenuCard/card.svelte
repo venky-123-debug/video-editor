@@ -2,7 +2,6 @@
   import { createEventDispatcher } from "svelte"
 
   const dispatch = createEventDispatcher()
-  import Handle from "./components/handle.svelte"
   import Tools from "./components/tools.svelte"
   import Tabs from "./tabs.svelte"
 
