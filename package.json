@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx rollup -c",
     "dev": "npx rollup -c -w",
-    "start": "ws"
+    "deploy": "npm run build && gh-pages -d public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -13,6 +13,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.13",
     "axios": "^1.4.0",
+    "gh-pages": "^6.1.1",
     "postcss": "^8.4.20",
     "prettier": "^2.8.1",
     "prettier-plugin-svelte": "^2.10.1",
