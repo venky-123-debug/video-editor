@@ -11,8 +11,6 @@
   let file = ""
   let paused = false
   let muted = false
-  let canvas
-  // let ctx = canvas.getContext("2d")
 
   const handleFileChange = (event) => {
     file = event.target.files[0]
@@ -89,7 +87,7 @@
       <div class="relative">
         <!-- svelte-ignore a11y-media-has-caption -->
         <video bind:this={videoElement} controls style="filter: {filterValue};" class="aspect-video w-full rounded-lg border-2 border-gray-800 {isVideoLoaded ? '' : 'hidden'}">Your browser does not support the video tag.</video>
-        <canvas bind:this={canvas} id="videoCanvas" class="absolute top-0 left-0" />
+        <!-- <canvas bind:this={canvas} id="videoCanvas" class="absolute top-0 left-0" /> -->
       </div>
       {#if isVideoLoaded}
         <button on:click={resetVideo} class="mt-4 w-full rounded-lg bg-red-600 py-2 px-4 text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600">Remove Video</button>
