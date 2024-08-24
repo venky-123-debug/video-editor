@@ -43,6 +43,7 @@
         $progressStore.contrast = 100
         $progressStore.grayscale = 0
         progress = 0
+        window.location.reload()
       }}
     />
     <Card bind:isVideoLoaded on:onProgress={handleProgress} />
